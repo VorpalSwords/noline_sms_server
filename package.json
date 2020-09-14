@@ -1,0 +1,16 @@
+{
+  "name": "noline_sms_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Liad",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase": "^7.20.0",
+    "twilio": "^3.49.1"
+  }
+}

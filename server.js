@@ -27,7 +27,6 @@ app.post('/voice', (req, res) => {
 });
 
 app.get('/noline_test_server', (req, res) => {
-    functions.logger.info("Hello logs!", {structuredData: true});
     res.send("Noline Server Is Up!");
 });
 
@@ -67,6 +66,6 @@ setTimeout(() => {
 
 /* SERVE */
 const port = process.env.PORT || 1337;
-http.createServer(app).listen(port , () => {
+http.createServer(app).listen(port , () => {    
     console.log('Express server listening on port ', port);
 });

@@ -30,7 +30,7 @@ const LoadFirstWatchers = async (nolineLink) => {
             console.log("Load First Watchers Error: Failed getting SMS Watchers Collection");
         }
 
-        querySnapshot.forEach(function(doc) {
+        querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
             NewSmsWatcher(doc.data(), nolineLink);
         });
@@ -116,40 +116,40 @@ const UpdateWatchers = async () => {
 
     const start = async () => {
         await asyncForEach(watchersTemp, async(value) => {
-        try {
-            let line_data = await database.collection(value.lineId).doc("line_data").get();
-            if (!line_data || !line_data.exists) {
-                console.log("Update Watchers Error: No line data in line: " + value.lineId);
-            } else {
-                const linePlace = line_data.data().currentPlaceInLine;
-                var notify = {
-                    phoneNumber : value.phoneNumber,
-                    text : ""
-                };
-
-                if (value.placeInLine < linePlace) {
-                    console.log("Update Watchers Warning: watcher with lid " + value.lineId + " uid " + value.userId + " is old one!");
-
-                } else if (value.placeInLine == linePlace) {
-                    console.log("Document data for new first in line:", value.userId, value.placeInLine);
-                    notify.text = "Hello kind sir, your turn has come. Thank you for waiting.";
-                    watchersToNotify.push(notify);
-
+            try {
+                let line_data = await database.collection(value.lineId).doc("line_data").get();
+                if (!line_data || !line_data.exists) {
+                    console.log("Update Watchers Error: No line data in line: " + value.lineId);
                 } else {
-                    if (value.placeInLine <= linePlace + PLACE_TO_SEND_NOTIICATION && !value.notifiedToNearby) {
-                        console.log("Document data for new fifth in line:", value.userId, value.placeInLine);
-                        let num = value.placeInLine - linePlace;
-                        notify.text = "You are #" + num + " in line! Please get ready and wait nearby!";
-                        
+                    const linePlace = line_data.data().currentPlaceInLine;
+                    var notify = {
+                        phoneNumber : value.phoneNumber,
+                        text : ""
+                    };
+
+                    if (value.placeInLine < linePlace) {
+                        console.log("Update Watchers Warning: watcher with lid " + value.lineId + " uid " + value.userId + " is old one!");
+
+                    } else if (value.placeInLine === linePlace) {
+                        console.log("Document data for new first in line:", value.userId, value.placeInLine);
+                        notify.text = "Hello kind sir, your turn has come. Thank you for waiting.";
                         watchersToNotify.push(notify);
-                        value.notifiedToNearby = true;
+
+                    } else {
+                        if (value.placeInLine <= linePlace + PLACE_TO_SEND_NOTIICATION && !value.notifiedToNearby) {
+                            console.log("Document data for new fifth in line:", value.userId, value.placeInLine);
+                            let num = value.placeInLine - linePlace;
+                            notify.text = "You are #" + num + " in line! Please get ready and wait nearby!";
+                            
+                            watchersToNotify.push(notify);
+                            value.notifiedToNearby = true;
+                        }
+                        watchers.push(value);
                     }
-                    watchers.push(value);
                 }
+            } catch (error) {
+                console.log("Update Watchers Error: Error getting document: ", error);
             }
-        } catch (error) {
-            console.log("Update Watchers Error: Error getting document: ", error);
-        }
         });
         return watchersToNotify;
     };

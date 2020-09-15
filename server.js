@@ -51,9 +51,9 @@ database.collection('smsWatchers').onSnapshot((querySnapshot) => {
                 twilio_api.SendSms(watcher.phoneNumber, watcher.text);
             }
         } else if (change.type === "modified") {
-            console.log("SMS Watchers Modified ", change.doc_id, change.doc.data());
+            console.log("SMS Watchers Modified ", change.doc.data());
         } else if (change.type === "removed") {
-            console.log("SMS Watchers Removed ", change.doc_id, change.doc.data());
+            console.log("SMS Watchers Removed ", change.doc.data());
         }
    })
 });
@@ -63,7 +63,7 @@ setTimeout(() => {
         console.log("Update Tick");
         watchersToNotify = await firebase_api.UpdateWatchers();
         watchersToNotify.forEach(async (watcher) => { twilio_api.SendSms(watcher.phoneNumber, watcher.text);} );
-    }, 500);
+    }, 60000);
 }, 3000);
 
 /* --------------------------------- */

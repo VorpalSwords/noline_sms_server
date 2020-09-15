@@ -32,7 +32,7 @@ const LoadFirstWatchers = async (nolineLink) => {
 
         querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-            NewSmsWatcher(doc.data(), nolineLink);
+            NewSmsWatcher(doc.data(), nolineLink + "/#/in-line/?id=" + doc.data().lineId);
         });
     } catch (error) {
         console.log("Load First Watchers Error: ", error);
@@ -92,7 +92,7 @@ const NewSmsWatcher = async (value, nolineLink) => {
             return null;
         }
 
-        watcher.text += " You can follow your status here: " + nolineLink;
+        watcher.text += " You can follow your status here: " + nolineLink + "/#/in-line/?id=" + watcher.lineId;
     } catch (error) {
         console.log("New SMS Watcher Error: Error getting user: ", error);
         return null;

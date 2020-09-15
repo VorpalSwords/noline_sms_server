@@ -62,7 +62,7 @@ const NewSmsWatcher = async (value, nolineLink) => {
         let watcherToPush = watcher;
         watchers.push(watcherToPush);
         
-        watcher.text = "Welcome to line number '" + watcher.lineId + "', your user id is: '" + watcher.userId + "'";
+        watcher.text = "Welcome to line number '" + watcher.lineId + "'";
 
         let placeForUser = watcher.placeInLine;
 

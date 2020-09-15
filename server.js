@@ -63,7 +63,7 @@ setTimeout(() => {
         console.log("Update Tick");
         watchersToNotify = await firebase_api.UpdateWatchers();
         watchersToNotify.forEach(async (watcher) => { twilio_api.SendSms(watcher.phoneNumber, watcher.text);} );
-    }, 60000);
+    }, 10000);
 }, 3000);
 
 /* --------------------------------- */

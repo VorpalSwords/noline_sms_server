@@ -7,7 +7,6 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
 const SendSms = async (toNumber, text) => {
-    console.log(toNumber, text);
     try {
         let message = await client.messages.create({
             body: text, 
@@ -17,7 +16,7 @@ const SendSms = async (toNumber, text) => {
         if (!message) {
             console.log("Error creating SMS: Empty");
         }
-        console.log(message.sid);
+        console.log("Sent SMS to: ", toNumber, " text: ", text, " id ", message.sid);
     } catch (error) {
         console.log("Error creating SMS: " + error);
     }

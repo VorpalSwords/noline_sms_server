@@ -29,24 +29,24 @@ firebase_api.SetDatabase(database);
 database.collection('smsWatchers').onSnapshot(async (querySnapshot) => {
     querySnapshot.docChanges().forEach(async (change) => {
         if (change.type == "added") {
-            console.log("SMS Watchers Add! ", change.doc.id, change.doc.data());
+            console.log("SMS Watchers Addded ", change.doc.id, change.doc.data());
             watcher = await firebase_api.NewSmsWatcher(change.doc.data());
             if (watcher) {
                 twilio_api.SendSms(watcher.phoneNumber, watcher.text);
             }
         } else if (change.type == "modified") {
-            console.log("SMS Watchers Modified");
+            console.log("SMS Watchers Modified ", change.doc_id, change.doc.data());
         } else if (change.type == "removed") {
-            console.log("SMS Watchers Removed");
+            console.log("SMS Watchers Removed ", change.doc_id, change.doc.data());
         }
    })
 });
 
 setInterval(async () => {
-    console.log("Tick");
+    console.log("Update Tick");
     watchersToNotify = await firebase_api.UpdateWatchers();
     watchersToNotify.forEach(async (watcher) => { twilio_api.SendSms(watcher.phoneNumber, watcher.text);} );
-}, 2000);
+}, 500);
 
 /* --------------------------------- */
 

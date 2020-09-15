@@ -1,6 +1,6 @@
-const accountSid = 'ACbc2f6ad9d9e8946260b7378863b2181b';
-const authToken = 'fc3f932bcf27102ab5c92f7c6e812cb0';
-const myNumber = '+17207306218';
+const accountSid = 'ACc0426ce203735e88851ee7ef31020fd1';
+const authToken = 'c29db3059472d423f9371d44f828755b';
+const myNumber = '+12095632969';
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;

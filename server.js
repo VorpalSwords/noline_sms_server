@@ -7,7 +7,7 @@ const firebase = require('firebase');
 const twilio_api = require('./twilio_api');
 const firebase_api = require('./firebase_api');
 
-const nolineLink = "https://www.google.com/";   // TODO: Change URL
+const nolineLink = "https://noline-dbc7f.web.app/#/join-line";
 
 /* EXPRESS */
 const app = express();

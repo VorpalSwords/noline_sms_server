@@ -30,6 +30,10 @@ app.get('/noline_test_server', (req, res) => {
     res.send("Noline Server Is Up!");
 });
 
+app.all('*', function(req, res) {
+    res.send(404);
+});
+
 /* --------------------------------- */
 
 /* FIREBASE */

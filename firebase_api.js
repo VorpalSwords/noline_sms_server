@@ -1,14 +1,14 @@
 const firebase = require('firebase');
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC8qwCckktJg7qDCQYD4b4TeHQ_V-SUipI",
-    authDomain: "noline-dbc7f.firebaseapp.com",
-    databaseURL: "https://noline-dbc7f.firebaseio.com",
-    projectId: "noline-dbc7f",
-    storageBucket: "noline-dbc7f.appspot.com",
-    messagingSenderId: "620736713564",
-    appId: "1:620736713564:web:de40798b66ffaae2b1e799",
-    measurementId: "G-12TW1W9YL4"
+    apiKey: "AIzaSyAweJhqmS_SH2L192pSleuv29mn5oYLlPs",
+    authDomain: "no-line-db.firebaseapp.com",
+    databaseURL: "https://no-line-db.firebaseio.com",
+    projectId: "no-line-db",
+    storageBucket: "no-line-db.appspot.com",
+    messagingSenderId: "867753962237",
+    appId: "1:867753962237:web:7c15df6948a8dccf9a6c94",
+    measurementId: "G-LEP4S075FT"
 };
 
 const PLACE_TO_SEND_NOTIICATION = 5;

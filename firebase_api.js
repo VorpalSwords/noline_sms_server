@@ -23,7 +23,7 @@ const SetDatabase = (db) => {
     database = db;
 }
 
-const LoadFirstWatchers = async () => {
+const LoadFirstWatchers = async (nolineLink) => {
     try {
         let querySnapshot = await database.collection("smsWatchers").get();
         if (!querySnapshot) {
@@ -32,14 +32,14 @@ const LoadFirstWatchers = async () => {
 
         querySnapshot.forEach(function(doc) {
             console.log(doc.id, " => ", doc.data());
-            NewSmsWatcher(doc.data());
+            NewSmsWatcher(doc.data(), nolineLink);
         });
     } catch (error) {
         console.log("Load First Watchers Error: ", error);
     }
 };
 
-const NewSmsWatcher = async (value) => {
+const NewSmsWatcher = async (value, nolineLink) => {
     if (!value) {
         console.log("New SMS Watcher Error: Empty Value");
     }
@@ -92,7 +92,7 @@ const NewSmsWatcher = async (value) => {
             return null;
         }
 
-        watcher.text += " You can follow your status here: " + "https://www.google.com/";
+        watcher.text += " You can follow your status here: " + nolineLink;
     } catch (error) {
         console.log("New SMS Watcher Error: Error getting user: ", error);
         return null;

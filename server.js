@@ -6,16 +6,20 @@ const firebase = require('firebase');
 const twilio_api = require('./twilio_api');
 const firebase_api = require('./firebase_api');
 
+const nolineLink = "https://www.google.com/";   // TODO: Change URL
+
 /* EXPRESS */
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.post('/sms', (req, res) => {
     twilio_api.LogReceievedSms(req, res);
+    twilio_api.ReponseToSms(req, res, "Noline link: " + nolineLink);
 });
 
 app.post('/voice', (req, res) => {
     twilio_api.LogIncomingCall(req, res);
+    twilio_api.ResponseToIncomingCall(req, res, "Noline link: " + nolineLink);
 });
 
 /* --------------------------------- */
@@ -30,7 +34,7 @@ database.collection('smsWatchers').onSnapshot(async (querySnapshot) => {
     querySnapshot.docChanges().forEach(async (change) => {
         if (change.type == "added") {
             console.log("SMS Watchers Addded ", change.doc.id, change.doc.data());
-            watcher = await firebase_api.NewSmsWatcher(change.doc.data());
+            watcher = await firebase_api.NewSmsWatcher(change.doc.data(), nolineLink);
             if (watcher) {
                 twilio_api.SendSms(watcher.phoneNumber, watcher.text);
             }

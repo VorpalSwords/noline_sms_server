@@ -26,22 +26,25 @@ const LogReceievedSms = (req, res) => {
     console.log("Received SMS From " + req.body.From + " : " + req.body.Body);
 };
 
-const ReponseToSms = (req, res, responseMessage) => {
-    const twiml = new MessagingResponse();
-    twiml.message(responseMessage);
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
+const ReponseToSms = (req, res, responseSmsMessage) => {
+    if (responseSmsMessage) {
+        SendSms(req.body.From, responseSmsMessage);
+    }
 };
 
 const LogIncomingCall = (req, res) => {
     console.log("Received Call From " + req.body.From);
 };
 
-const ResponseToIncomingCall = (req, res) => {
+const ResponseToIncomingCall = (req, res, followupSmsMessage) => {
     const twiml = new VoiceResponse();
-    twiml.say({ voice: 'alice' }, 'Hello, this is mister razuchka');
+    twiml.say({ voice: 'alice' }, 'Hello, you will receive SMS with noline registeration link in just a second.');
     res.type('text/xml');
     res.send(twiml.toString());
+
+    if (followupSmsMessage) {
+        SendSms(req.body.From, followupSmsMessage);
+    }
 };
 
 exports.SendSms = SendSms;

@@ -132,14 +132,14 @@ const UpdateWatchers = async () => {
 
                     } else if (value.placeInLine === linePlace) {
                         console.log("Document data for new first in line:", value.userId, value.placeInLine);
-                        notify.text = "Hello kind sir, your turn has come. Thank you for waiting.";
+                        notify.text = "Hello kind sir, your turn has come! (line " + value.lineId + ") Thank you for waiting :).";
                         watchersToNotify.push(notify);
 
                     } else {
                         if (value.placeInLine <= linePlace + PLACE_TO_SEND_NOTIICATION && !value.notifiedToNearby) {
                             console.log("Document data for new fifth in line:", value.userId, value.placeInLine);
                             let num = value.placeInLine - linePlace;
-                            notify.text = "You are #" + num + " in line! Please get ready and wait nearby!";
+                            notify.text = "You are #" + num + " in line (" + value.lineId + ")! Please get ready and wait nearby!";
                             
                             watchersToNotify.push(notify);
                             value.notifiedToNearby = true;

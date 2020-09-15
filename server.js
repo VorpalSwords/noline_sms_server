@@ -28,7 +28,7 @@ app.post('/voice', (req, res) => {
 
 app.get('/noline_test_server', (req, res) => {
     functions.logger.info("Hello logs!", {structuredData: true});
-    res.send("Hello from Firebase!");
+    res.send("Noline Server Is Up!");
 });
 
 /* --------------------------------- */
@@ -66,6 +66,7 @@ setTimeout(() => {
 /* --------------------------------- */
 
 /* SERVE */
-http.createServer(app).listen(1337, () => {
-    console.log('Express server listening on port 1337');
+const port = process.env.PORT || 1337;
+http.createServer(app).listen(port , () => {
+    console.log('Express server listening on port ', port);
 });
